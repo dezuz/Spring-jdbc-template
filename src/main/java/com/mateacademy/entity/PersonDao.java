@@ -1,6 +1,7 @@
 package com.mateacademy.entity;
 
 import java.util.List;
+import java.util.Optional;
 
 /** This interface contains methods which we have
  * to realize for CRUD operations.
@@ -14,7 +15,7 @@ public interface PersonDao {
 
     void deletePerson(int personId);
 
-    Person find(int personId);
+    Optional<Person> find(int personId);
 
     List<Person> findAll();
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /** This class marked as "personService"
  *  using @Service annotation. Use @Autowired
@@ -18,7 +19,7 @@ import java.util.List;
 public class PersonServiceImpl implements PersonService {
 
     @Autowired
-    PersonDao personDao;
+    private PersonDao personDao;
 
     public void addPerson(Person person) {
         personDao.addPerson(person);
@@ -32,7 +33,7 @@ public class PersonServiceImpl implements PersonService {
         personDao.deletePerson(personId);
     }
 
-    public Person find(int personId) {
+    public Optional<Person> find(int personId) {
         return personDao.find(personId);
     }
 

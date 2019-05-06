@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /** This class marked with @Repository annotation,
  * It allows the component scanning to find and
@@ -19,14 +20,14 @@ import java.util.List;
 public class PersonDaoImpl implements PersonDao{
     private final static Logger LOGGER = Logger.getLogger(PersonDaoImpl.class);
 
-    @Autowired
-    JdbcTemplate jdbcTemplate;
-
     private final static String INSERT = "INSERT INTO persons (first_name, last_name, age) VALUES (?, ?, ?)";
     private final static String UPDATE = "UPDATE persons SET first_name = ? , last_name = ? , age = ? WHERE id = ?";
     private final static String DELETE = "DELETE from persons WHERE id = ?";
     private final static String SELECT = "SELECT * FROM persons where id = ?";
     private final static String SELECT_ALL = "SELECT * FROM persons";
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     public void addPerson(Person person) {
         jdbcTemplate.update(INSERT, person.getFirstName(), person.getLastName(), person.getAge());
@@ -43,11 +44,13 @@ public class PersonDaoImpl implements PersonDao{
         LOGGER.info("Person Deleted!!");
     }
 
-    public Person find(int personId) {
+    public Optional<Person> find(int personId) {
         Person person = (Person) jdbcTemplate.queryForObject(SELECT,
                 new Object[] { personId }, new BeanPropertyRowMapper(Person.class));
 
-        return person;
+        Optional<Person> optionalPerson = Optional.ofNullable(person);
+
+        return optionalPerson;
     }
 
     public List<Person> findAll() {

@@ -10,8 +10,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.AbstractApplicationContext;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
+import java.util.Optional;
 
 public class PersonDaoImplTest {
     private AbstractApplicationContext context;
@@ -49,7 +48,7 @@ public class PersonDaoImplTest {
 
         personService.editPerson(Serhij, 50);
 
-        Assert.assertEquals(personService.find(50).getFirstName(),"Serhij - Updated");
+        Assert.assertEquals(personService.find(50).get().getFirstName(),"Serhij - Updated");
     }
 
     @Test
@@ -59,9 +58,9 @@ public class PersonDaoImplTest {
 
     @Test
     public void findPersonTest() {
-        Person testPerson = personService.find(50);
+        Optional<Person> testPerson = personService.find(50);
 
-        Assert.assertEquals(testPerson.getFirstName(), "Vasilios");
+        Assert.assertEquals(testPerson.get().getFirstName(), "Serhij - Updated");
     }
 
     @Test
