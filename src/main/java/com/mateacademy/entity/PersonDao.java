@@ -11,7 +11,7 @@ public interface PersonDao {
 
     void addPerson(Person person);
 
-    void editPerson(Person person, int personId);
+    void editPerson(Person person);
 
     int getId(Person person);
 

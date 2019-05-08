@@ -45,11 +45,11 @@ public class PersonDaoImplTest {
 
     @Test
     public void editPersonTest() {
-        Serhij.setFirstName("Serhij - Updated").setLastName("Hurko - Updated").setAge(20);
+        Serhij.setFirstName("Serhij - Updated").setLastName("Hurko - Updated").setAge(20).setId(73);
 
-        personService.editPerson(Serhij, 50);
+        personService.editPerson(Serhij);
 
-        assertEquals(personService.find(50).getFirstName(),"Serhij - Updated");
+        assertEquals(personService.find(73).getFirstName(),"Serhij - Updated");
     }
 
     @Test
