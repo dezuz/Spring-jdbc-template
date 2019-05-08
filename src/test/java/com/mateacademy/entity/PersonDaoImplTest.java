@@ -3,14 +3,15 @@ package com.mateacademy.entity;
 import com.mateacademy.configuration.AppConfiguration;
 import com.mateacademy.service.PersonService;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 
 import java.util.List;
-import java.util.Optional;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class PersonDaoImplTest {
     private AbstractApplicationContext context;
@@ -39,7 +40,7 @@ public class PersonDaoImplTest {
         personService.addPerson(Vasilios);
         personService.addPerson(Lesya);
 
-        Assert.assertNotNull(personService.find(49));
+        assertNotNull(personService.find(49));
     }
 
     @Test
@@ -48,28 +49,30 @@ public class PersonDaoImplTest {
 
         personService.editPerson(Serhij, 50);
 
-        Assert.assertEquals(personService.find(50).get().getFirstName(),"Serhij - Updated");
+        assertEquals(personService.find(50).getFirstName(),"Serhij - Updated");
     }
 
     @Test
     public void deletePersonTest() {
         personService.deletePerson(49);
+
+        assertNotNull(personService.find(49));
     }
 
     @Test
     public void findPersonTest() {
-        Optional<Person> testPerson = personService.find(50);
+        Person testPerson = personService.find(50);
 
-        Assert.assertEquals(testPerson.get().getFirstName(), "Serhij - Updated");
+        assertEquals(testPerson.getFirstName(), "Serhij - Updated");
     }
 
     @Test
     public void findAllPersonTest() {
         List<Person> personList = personService.findAll();
 
-        Assert.assertEquals(personList.get(0).getLastName(), "Lyahovsky");
-        Assert.assertEquals(personList.get(1).getLastName(), "Hurko");
-        Assert.assertEquals(personList.get(2).getLastName(), "Zhovtani");
+        assertEquals(personList.get(0).getLastName(), "Lyahovsky");
+        assertEquals(personList.get(1).getLastName(), "Hurko");
+        assertEquals(personList.get(2).getLastName(), "Zhovtani");
     }
 
     @After

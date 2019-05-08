@@ -41,4 +41,3 @@ public class AppConfiguration {
         return jdbcTemplate;
     }
 }
-

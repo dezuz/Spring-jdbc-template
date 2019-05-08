@@ -33,8 +33,8 @@ public class PersonServiceImpl implements PersonService {
         personDao.deletePerson(personId);
     }
 
-    public Optional<Person> find(int personId) {
-        return personDao.find(personId);
+    public Person find(int personId) {
+        return personDao.find(personId).get();
     }
 
     public List<Person> findAll() {
