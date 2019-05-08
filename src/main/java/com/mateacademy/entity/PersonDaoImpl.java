@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,8 +23,9 @@ public class PersonDaoImpl implements PersonDao{
 
     private final static String INSERT = "INSERT INTO persons (first_name, last_name, age) VALUES (?, ?, ?)";
     private final static String UPDATE = "UPDATE persons SET first_name = ? , last_name = ? , age = ? WHERE id = ?";
+    private final static String SELECT_ID = "SELECT (id) FROM persons WHERE first_name = ?";
     private final static String DELETE = "DELETE from persons WHERE id = ?";
-    private final static String SELECT = "SELECT * FROM persons where id = ?";
+    private final static String SELECT = "SELECT * FROM persons WHERE id = ?";
     private final static String SELECT_ALL = "SELECT * FROM persons";
 
     @Autowired
@@ -37,6 +39,12 @@ public class PersonDaoImpl implements PersonDao{
     public void editPerson(Person person, int personId) {
         jdbcTemplate.update(UPDATE, person.getFirstName(), person.getLastName(), person.getAge(), personId);
         LOGGER.info("Person Updated!!");
+    }
+
+    public int getId(Person person) {
+        Person helperPerson = (Person) jdbcTemplate.queryForObject(SELECT_ID,
+                new Object[] { person.getFirstName() }, new BeanPropertyRowMapper(Person.class));
+        return helperPerson.getId();
     }
 
     public void deletePerson(int personId) {

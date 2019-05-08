@@ -13,6 +13,8 @@ public interface PersonDao {
 
     void editPerson(Person person, int personId);
 
+    int getId(Person person);
+
     void deletePerson(int personId);
 
     Optional<Person> find(int personId);

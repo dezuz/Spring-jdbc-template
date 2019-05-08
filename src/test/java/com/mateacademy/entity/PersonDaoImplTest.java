@@ -40,7 +40,7 @@ public class PersonDaoImplTest {
         personService.addPerson(Vasilios);
         personService.addPerson(Lesya);
 
-        assertNotNull(personService.find(49));
+        assertNotNull(personService.find(73));
     }
 
     @Test
@@ -50,6 +50,13 @@ public class PersonDaoImplTest {
         personService.editPerson(Serhij, 50);
 
         assertEquals(personService.find(50).getFirstName(),"Serhij - Updated");
+    }
+
+    @Test
+    public void getIdTest() {
+        int id = personService.getId(Serhij);
+
+        assertEquals( personService.find(id).getFirstName(), "Serhij");
     }
 
     @Test
