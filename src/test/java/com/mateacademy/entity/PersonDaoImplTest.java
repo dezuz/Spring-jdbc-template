@@ -1,6 +1,7 @@
 package com.mateacademy.entity;
 
 import com.mateacademy.configuration.AppConfiguration;
+import com.mateacademy.service.MyException;
 import com.mateacademy.service.PersonService;
 import org.junit.After;
 import org.junit.Before;
@@ -35,16 +36,16 @@ public class PersonDaoImplTest {
     }
 
     @Test
-    public void addPersonTest() {
+    public void addPersonTest() throws MyException {
         personService.addPerson(Serhij);
         personService.addPerson(Vasilios);
         personService.addPerson(Lesya);
 
-        assertNotNull(personService.find(73));
+        assertNotNull(personService.find(20));
     }
 
     @Test
-    public void editPersonTest() {
+    public void editPersonTest() throws MyException {
         Serhij.setFirstName("Serhij - Updated").setLastName("Hurko - Updated").setAge(20).setId(73);
 
         personService.editPerson(Serhij);
@@ -53,22 +54,22 @@ public class PersonDaoImplTest {
     }
 
     @Test
-    public void getIdTest() {
+    public void getIdTest() throws MyException {
         int id = personService.getId(Serhij);
 
         assertEquals( personService.find(id).getFirstName(), "Serhij");
     }
 
     @Test
-    public void deletePersonTest() {
+    public void deletePersonTest() throws MyException {
         personService.deletePerson(49);
 
         assertNotNull(personService.find(49));
     }
 
     @Test
-    public void findPersonTest() {
-        Person testPerson = personService.find(50);
+    public void findPersonTest() throws MyException {
+        Person testPerson = personService.find(73);
 
         assertEquals(testPerson.getFirstName(), "Serhij - Updated");
     }

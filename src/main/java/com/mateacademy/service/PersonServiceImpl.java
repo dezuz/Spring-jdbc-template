@@ -2,11 +2,11 @@ package com.mateacademy.service;
 
 import com.mateacademy.entity.Person;
 import com.mateacademy.entity.PersonDao;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 /** This class marked as "personService"
  *  using @Service annotation. Use @Autowired
@@ -17,6 +17,7 @@ import java.util.Optional;
 
 @Service("personService")
 public class PersonServiceImpl implements PersonService {
+    private static final Logger LOGGER = Logger.getLogger(PersonServiceImpl.class);
 
     @Autowired
     private PersonDao personDao;
@@ -37,8 +38,8 @@ public class PersonServiceImpl implements PersonService {
         personDao.deletePerson(personId);
     }
 
-    public Person find(int personId) {
-        return personDao.find(personId).get();
+    public Person find(int personId) throws MyException{
+        return personDao.find(personId).orElseThrow(MyException::new);
     }
 
     public List<Person> findAll() {

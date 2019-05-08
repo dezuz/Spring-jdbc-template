@@ -18,7 +18,7 @@ public interface PersonService {
 
     void deletePerson(int personId);
 
-    Person find(int personId);
+    Person find(int personId) throws MyException;
 
     List<Person> findAll();
 }
